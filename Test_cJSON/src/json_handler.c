@@ -1,6 +1,7 @@
 #include <stdio.h> 
 #include "../include/cJSON.h"
 #include <stdlib.h>
+
 void createJson() {
     FILE  *fp; 
     char  *json_string = NULL;
@@ -21,7 +22,7 @@ void createJson() {
     fclose(fp);
 }
 
-char *parseJson() {
+char *readJsonFile() {
     FILE *fp;
     char *buffer;
     long fileSize;
@@ -39,4 +40,33 @@ char *parseJson() {
 
     //printf("%s",buffer);
     return buffer;
+}
+
+void parseJson( const char *json_string){
+   cJSON *nome_studente = NULL;
+   cJSON *cognome_studente = NULL;
+   cJSON *eta_studente = NULL;
+   const char *err_json = NULL;
+
+   cJSON *all_Json = cJSON_Parse(json_string);          // faccio il parse della stringa letta ottenuta dalla lettura del file
+
+   if ( all_Json == NULL ) {
+        err_json = cJSON_GetErrorPtr();
+        printf("Error before: %s\n", err_json);         // stampo errore
+   }
+
+   // inizio l'analisi dei vari campi
+   nome_studente = cJSON_GetObjectItemCaseSensitive(all_Json,"nome");               // vado a prendermi l'elemento desiderato
+   if(cJSON_IsString(nome_studente) && (nome_studente->valuestring != NULL)){
+       printf("\nnome studente:%s\n",nome_studente->valuestring);
+   }
+   cognome_studente = cJSON_GetObjectItemCaseSensitive(all_Json,"cognome");
+   if(cJSON_IsString(cognome_studente) && (cognome_studente->valuestring)){
+        printf("cognome studente:%s\n",cognome_studente->valuestring);
+   }
+   eta_studente = cJSON_GetObjectItemCaseSensitive(all_Json,"età");
+   if(cJSON_IsNumber(eta_studente)){
+       printf("età studente:%d\n\n",eta_studente->valueint);
+   }
+
 }
