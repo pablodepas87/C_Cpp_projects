@@ -37,6 +37,7 @@ void tst_isalnum(){
     int var3 = ' ';
 
     printf("\nTest caratteri alfanumerici\n");
+
     isalnum(var1) ? printf("%c è alfanumerico\n",var1) : printf("%c non è alfanumerico\n",var1) ;
     isalnum(var2) ? printf("%c è alfanumerico\n",var2) : printf("%c non è alfanumerico\n",var2) ;
     isalnum(var3) ? printf("%c è alfanumerico\n",var3) : printf("%c non è alfanumerico\n",var3) ;
@@ -50,11 +51,13 @@ void tst_isalpha() {
     int var2 = '2';
     int var3 = ' ';
 
+
     printf("\nTest caratteri alfabetici\n");
     isalpha(var1) ? printf("%c è alfabetico\n",var1) : printf("%c non è alfabetico\n",var1) ;
     isalpha(var2) ? printf("%c è alfabetico\n",var2) : printf("%c non è alfabetico\n",var2) ;
     isalpha(var3) ? printf("%c è alfabetico\n",var3) : printf("%c non è alfabetico\n",var3) ;
    
+
 }
 
 void tst_iscntrl(){
@@ -94,9 +97,10 @@ void tst_isdigit() {
     int var2 = '2';
     
     printf("\nTest caratteri numerici\n");
-    
+
     isdigit(var1) ? printf("%c è numerico\n",var1) : printf("%c non è numerico\n",var1) ;
     isdigit(var2) ? printf("%c è numerico\n",var2) : printf("%c non è numerico\n",var2) ;
+
 
 }
 
