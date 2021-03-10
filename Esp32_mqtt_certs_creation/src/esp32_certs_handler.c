@@ -13,21 +13,24 @@ char *create_pki_esp32_item(char *certificate_data, certs_type type_of_cert)
 {
 
   char *pki_item; 
+  char *certs;
   int  length_pki_item = PKI_ITEM_LENGTH_FIELDS + (int)strlen(certificate_data) + PADDING_PKI_ITEM_LENGTH;
   int  padding_field_size;
 
-  pki_item = malloc(length_pki_item);
+  certs = malloc(length_pki_item);
+  pki_item = malloc(PKI_ITEM_LENGTH_FIELDS);
 
   pki_item = create_pki_item_field((int)type_of_cert,1);                       // aggiungo il valore di type_certs
   strcat(pki_item,create_pki_item_field(0,1));                                 // aggiungo il valore dell'id è sempre 0 xchè abbiamo un solo cert
   strcat(pki_item,create_pki_item_field((int)strlen(certificate_data),2));     // creo il campo size of string cert
-  strcat(pki_item,certificate_data);                                           // aggiungo il certificato    
-  
+
+  sprintf(certs,"%s%s",pki_item,certificate_data);
   padding_field_size = ((4 - ((int)strlen(certificate_data) % 4)) % 4);        // in base alla length devo inserire n 0xFF come padding
   for ( int i=0;i<padding_field_size;i++){
-    strcat(pki_item,create_pki_item_field(0xFF,1));  
+    strcat(certs,create_pki_item_field(0xFF,1));
   }        
-  return pki_item;
+
+  return certs;
 
 }
 
